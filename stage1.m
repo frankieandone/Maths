@@ -1,19 +1,17 @@
-function [U] = stage1()
-    A = [   
-            1 1 1; 
-            2 3 1;
-            1 -1 -2;
-        ];
+% U1462480 Farzad Merzadyan
+function [U] = stage1(A)
+    
+    % A = [ 1 1 1; 2 3 1; 1 -1 -2];
     
     [m,n] = size(A);
     
     % Verify whether A is a square matrix.
     if m ~= n
-        disp("Error: non-square matrix");
+        error("Error: non-square matrix.");
         return;
     end
     
-     for i = 1:n-1
+    for i = 1:n-1
            for j = i+1:n
                 % The pivot is the element in the diagonal line.
                 pivot = A(i,i);
@@ -21,7 +19,7 @@ function [U] = stage1()
                 % If the pivot is not 1 then simplify the row where the
                 % pivot is 1. Any changes made is done to the pivot is done
                 % to the other elements in the same row as the pivot.
-                if A(i,i) ~= 1
+                if pivot ~= 1
                     A(i,:) = A(i,:)/pivot;
                     pivot = A(i,i);
                 end
@@ -32,18 +30,23 @@ function [U] = stage1()
            end
     end
     
-    idx=A==0;
-    rank=sum(idx(:));
+    U = A;
     
-    disp("Rank is of A is: " + rank);
+    % Count the instances of non-zero rows in matrix A.
+    idx=U==0;
+    RankOfU=sum(idx(:));
+    
+    disp("Rank is of matrix U: " + RankOfU);
     
     % From the definition of rank in week 8 lecture notes: if rank = m then
     % full rank; if rank < m then rank deficient.
-    if rank == m
-        disp("Matrix A has full rank.");
-    elseif rank < m
-        disp("Matrix A is rank deficient.");
+    if RankOfU == m
+        disp("Matrix U has full rank.");
+    elseif RankOfU < m
+        disp("Matrix U is rank deficient.");
+    elseif RankOfU > m
+        % Catches improbable events when RankOfU > m.
+        % Should be impossible but catching just in case.
+        error("Error: rank cannot be greater than m.");
     end
-    
-    U = A;
 end
