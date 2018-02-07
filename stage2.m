@@ -24,22 +24,22 @@ function [x] = stage2(A,b)
     % A is a square matrix then m=n therefore m and n can be used
     % interchangeably.
     for i = 1:n-1
-           for j = i+1:n
-                % The pivot is the element in the diagonal line.
-                pivot = AugMatrix(i,i);
-                
-                % If the pivot is not 1 then simplify the row where the
-                % pivot is 1. Any changes made is done to the pivot is done
-                % to the other elements in the same row as the pivot.
-                if pivot ~= 1
-                    AugMatrix(i,:) = AugMatrix(i,:)/pivot;
-                    pivot = AugMatrix(i,i);
-                end
-                
-                % Row j = Row j - multiple of row i which is a factor of
-                % Row j.
-                AugMatrix(j,:) = AugMatrix(j,:) - AugMatrix(i,:) * AugMatrix(j,i)/pivot;
-           end
+        % The pivot is the element in the diagonal line.
+        pivot = AugMatrix(i,i);
+        
+        % If the pivot is not 1 then simplify the row where the
+        % pivot is 1. Any changes made is done to the pivot is done
+        % to the other elements in the same row as the pivot.
+        if pivot ~= 1
+            AugMatrix(i,:) = AugMatrix(i,:)/pivot;
+            pivot = AugMatrix(i,i);
+        end
+        
+        for j = i+1:n
+            % Row j = Row j - multiple of row i which is a factor of
+            % Row j.
+            AugMatrix(j,:) = AugMatrix(j,:) - AugMatrix(i,:) * AugMatrix(j,i)/pivot;
+        end
     end
     
     % U represents upper echelon form of the augmented matrix.
