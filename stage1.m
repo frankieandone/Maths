@@ -61,4 +61,27 @@ function [U] = stage1(A)
     
     % U represents upper echelon form of matrix A.
     U = A;
+    
+    % tnZ represents total non-zero rows in U.
+    % Assume matrix has full rank.
+    tNZ = n;
+    for i = 1:n
+        % isZero is true if all elements in row i are zero values.
+        isZeroRow = all(A(i,:) == 0);
+        % If row i are all zero values then decrement rank by 1.
+        if isZeroRow == 1 && tNZ > 0
+            tNZ = tNZ - 1;
+        end
+    end
+    
+    % Using definitions from lecture notes from week 8: 
+    % full rank is when rank = n.
+    % rank deficient is when rank < n.
+    if tNZ == n
+        disp("Full rank. Rank: " + tNZ);
+    elseif tNZ < n
+        disp("Rank deficient. Rank: " + tNZ);
+    elseif tNZ < 0
+        error("Error: rank < 0. Rank: " + tNZ);
+    end
 end
