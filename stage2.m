@@ -72,6 +72,13 @@ function [x] = stage2(A,b)
     % U represents upper echelon form of the augmented matrix.
     U = AugAb;
     
+    % U(n,1:n+n2) is entire bottom row of U including LHS and RHS.
+    isZeroRow = all(U(n,1:n+n2) == 0);
+    if isZeroRow == 1
+        disp("This system of equations has infinite solutions.");
+        return;
+    end
+    
     % U represents upper echelon form of the augmented matrix.
     U = AugAb;
     % U(n,1:n) gets the x cofficients in the LHS.
