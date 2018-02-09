@@ -14,7 +14,7 @@ function [U] = stage1(A)
     % A is a square matrix then m=n therefore m and n can be used
     % interchangeably.
     % n represents the outer boundaries (since m=n) of the matrix.
-    for i = 1:n-1
+    for i = 1:n
         % A(i:n,i) gets all elements from row i to n in column i.
         % abs(A(i:n,i)) gets the absolute values for these elements.
         % max(abs(A(i:n,i))) gets the largest absolute value.
