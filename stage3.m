@@ -37,6 +37,7 @@ function [x] = stage3(A,b)
         
         % If k = 1 then it means same row, no point checking the row in
         % that case. k > 1 prevents useless iteration.
+        % AugAbBefore = AugAb
         if k > 1
             % Variable temp holds a temporary copy of current row.
             temp = AugAb(i,:);
@@ -45,6 +46,7 @@ function [x] = stage3(A,b)
             % Copy the temporary row into the next row completing the swap.
             AugAb(i+k-1,:) = temp;
         end
+        % AugAbAfter = AugAb
         
         % The pivot is the element in the diagonal line.
         pivot = AugAb(i,i);
@@ -71,6 +73,14 @@ function [x] = stage3(A,b)
     
     % U represents upper echelon form of the augmented matrix.
     U = AugAb;
+    % U(n,1:n) gets the x cofficients in the LHS.
+    % Check if the last row are zero cofficients.
+    isZeroRow = all(U(n,1:n) == 0);
+    % If row i are all zero values then decrement rank by 1.
+    if isZeroRow == 1
+        disp("This system of equations has no solutions.");
+        return;
+    end
     
     % Reminder: [m,n] = size(A);
     % Reminder: [m2, n2] = size(b);

@@ -72,6 +72,17 @@ function [x] = stage2(A,b)
     % U represents upper echelon form of the augmented matrix.
     U = AugAb;
     
+    % U represents upper echelon form of the augmented matrix.
+    U = AugAb;
+    % U(n,1:n) gets the x cofficients in the LHS.
+    % Check if the last row are zero cofficients.
+    isZeroRow = all(U(n,1:n) == 0);
+    % If row i are all zero values then decrement rank by 1.
+    if isZeroRow == 1
+        disp("This system of equations has no solutions.");
+        return;
+    end
+    
     % Reminder: [m,n] = size(A);
     % Reminder: [m2, n2] = size(b);
     % A is a square matrix then m=n therefore m and n can be used
